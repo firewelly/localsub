@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "paths": {
+    "input_dir": "input",
+    "work_dir": "work",
+    "output_dir": "output",
+    "logs_dir": "logs"
+  },
+  "input_extensions": [
+    ".mp4",
+    ".mkv",
+    ".mov",
+    ".m4v",
+    ".avi",
+    ".wmv",
+    ".webm",
+    ".ts",
+    ".flv",
+    ".mpg",
+    ".mpeg",
+    ".wav",
+    ".mp3",
+    ".m4a",
+    ".flac",
+    ".aac",
+    ".ogg"
+  ],
+  "tools": {
+    "ffmpeg": "tools/windows/ffmpeg/ffmpeg.exe",
+    "ffprobe": "tools/windows/ffmpeg/ffprobe.exe",
+    "whisper_cli": "tools/windows/whisper/whisper-cli.exe",
+    "llama_server": "tools/windows/llama/llama-server.exe",
+    "python": ".venv/Scripts/python.exe"
+  },
+  "models": {
+    "whisper": "models/whisper/ggml-large-v3.bin",
+    "whisper_fallback": "models/whisper/ggml-large-v3.bin",
+    "vad": "models/whisper/ggml-silero-v5.1.2.bin",
+    "translation": "models/translation/HY-MT2-7B-Q8_0.gguf"
+  },
+  "audio": {
+    "sample_rate": 16000,
+    "channels": 1,
+    "codec": "pcm_s16le",
+    "wav_name": "audio16k.wav",
+    "extra_args": []
+  },
+  "whisper": {
+    "language": "ja",
+    "threads": 8,
+    "vad": true,
+    "word_timestamps": false,
+    "suppress_non_speech": true,
+    "chunk_minutes": 10,
+    "clean": true,
+    "streaming": true,
+    "chunk_extract_timeout_sec": 600,
+    "full_extract_timeout_sec": 1800,
+    "timeout_sec": 1800,
+    "extra_args": [
+      "-dev",
+      "1",
+      "-mc",
+      "0",
+      "-vt",
+      "0.3"
+    ],
+    "initial_prompt": "以下は日本のアダルトビデオの対話です。喘ぎ声や感嘆詞（あっ、ああ、ん、はあ）も話し言葉としてそのまま文字起こししてください。"
+  },
+  "llama": {
+    "host": "127.0.0.1",
+    "port": 8080,
+    "n_gpu_layers": 99,
+    "ctx_size": 4096,
+    "threads": 8,
+    "startup_timeout_sec": 300,
+    "server_url": "",
+    "extra_args": [
+      "-dev",
+      "Vulkan1"
+    ]
+  },
+  "translate": {
+    "api_base": "http://127.0.0.1:8080/v1",
+    "model": "Hy-MT2-7B-Q8_0",
+    "concurrency": 2,
+    "context_size": 4,
+    "timeout_sec": 180,
+    "retries": 3,
+    "temperature": 0.3,
+    "top_p": 0.9,
+    "max_tokens": 512,
+    "fallback_on_error": true,
+    "api_key": "",
+    "health_url": "",
+    "system_prompt": "你是专业的日语到简体中文字幕翻译器。请把输入的日文字幕逐句翻译成自然、通顺的简体中文，忠实传达原意；只输出译文本身，不要解释、不要加引号、不要合并或拆分句子，不要输出原文。",
+    "user_template": "前文（仅供理解上下文，不要翻译，也不要输出）：\n{context}\n\n请把下面这一行日文字幕翻译成简体中文，只输出译文：\n{text}"
+  },
+  "bilingual": {
+    "mode": "zh_top",
+    "separator": " | ",
+    "allow_mismatch": false
+  },
+  "qc": {
+    "max_cps": 15.0,
+    "min_duration_ms": 500,
+    "max_duration_ms": 9000,
+    "overlap_tolerance_ms": 0,
+    "max_gap_ms": 15000,
+    "kana_severity": "error",
+    "duplicate_severity": "warning",
+    "max_compare_items": 20,
+    "strict": false
+  },
+  "srt": {
+    "encoding": "utf-8",
+    "newline": "lf"
+  },
+  "log": {
+    "keep_days": 30
+  },
+  "languages": {
+    "source": "ja",
+    "target": "zh"
+  }
+}

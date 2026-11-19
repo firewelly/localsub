@@ -1,0 +1,123 @@
+# Windows 特有
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS 特有
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# 编辑器/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.*.sw[a-z]
+
+# Python
+__pycache__/
+.venv/
+venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# 环境与凭证
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+credentials/
+
+# 用户数据（不提交）
+input/
+work/
+output/
+logs/
+
+# 模型文件（太大，不提交；含 whisper/、translation/ 子目录）
+models/*.bin
+models/*.gguf
+models/*.pt
+models/*.pth
+models/*.safetensors
+models/*.onnx
+models/*.part
+models/**/*.bin
+models/**/*.gguf
+models/**/*.pt
+models/**/*.pth
+models/**/*.safetensors
+models/**/*.onnx
+models/**/*.part
+models/_meta/
+models/_tree_*.json
+
+# 工具二进制（需用户自行准备；含 ffmpeg/ whisper/ llama/ 子目录）
+tools/windows/*.exe
+tools/windows/*.dll
+tools/windows/*.so
+tools/windows/*.dylib
+tools/windows/**
+tools/linux/
+tools/mac/
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.log
+*.part
+
+# 打包文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 测试产物
+.pytest_cache/
+test-output/
+# 瘦身归档（不提交）
+archive/
+
+# 忽略所有点开头的隐藏文件/目录（.gitignore 本身除外）
+.*
+!.gitignore
+
+# AI 工具/会话工作历史
+.dsh/
+.claude/
+.codebuddy/
+.cursor/
+.aider/
+.continue/

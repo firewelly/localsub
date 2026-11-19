@@ -1,0 +1,8 @@
+# 模型文件 SHA256 校验清单（2026-11-16 瘦身定版）
+# 最终 pipeline 只保留：Whisper large-v3（听写）+ Silero VAD（VAD）+ Hy-MT2-7B-Q8（翻译）
+# 格式：sha256  相对路径
+# 校验（在 models/ 目录下）：Get-FileHash -Algorithm SHA256 <文件>，或 sha256sum -c CHECKSUMS.sha256
+
+64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2  whisper/ggml-large-v3.bin
+29940d98d42b91fbd05ce489f3ecf7c72f0a42f027e4875919a28fb4c04ea2cf  whisper/ggml-silero-v5.1.2.bin
+58b3ad55dd6f6fa08c695cddc34fb5f8f708a844f78ae10508071914b0ed67c0  translation/HY-MT2-7B-Q8_0.gguf
