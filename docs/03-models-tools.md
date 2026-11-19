@@ -16,6 +16,9 @@
 | VAD 模型 | `ggml-silero-v5.1.2.bin` | 0.9 MB | ✅ 校验通过 |
 | 翻译模型 | `HY-MT2-7B-Q8_0.gguf` | 7.43 GB | ✅ 校验通过（最终翻译） |
 | 工具 | ffmpeg / whisper-cli / llama-server | ≈0.5 GB | ✅ 已实装 |
+
+> 下载地址、许可证与再分发注意事项：见 models/MANIFEST.md 与根目录 THIRD_PARTY.md。
+> Whisper 权重 Apache-2.0、Silero VAD MIT、Hy-MT2 Apache-2.0；本仓库代码为 MIT，不覆盖模型与二进制。
 ---
 
 ## 1. 听写模型（whisper.cpp ggml）
@@ -27,8 +30,8 @@
 | 文件 | `models/whisper/ggml-large-v3.bin` |
 | 大小 | 3,095,033,483 B（2.88GB） |
 | sha256 | `64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2` |
-| 来源 | HuggingFace `ggerganov/whisper.cpp` |
-| 许可证 | MIT |
+| 来源 | https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin |
+| 许可证 | **Apache-2.0**（OpenAI 权重模型卡；ggml 转换仓库标注 MIT） |
 | 用途 | 日语听写主模型（质量优先） |
 
 ### 1.2 large-v3-turbo（加速对照）
@@ -56,7 +59,7 @@
 | 文件 | `models/whisper/ggml-silero-v5.1.2.bin` |
 | 大小 | 885,098 B（0.9MB） |
 | sha256 | `29940d98d42b91fbd05ce489f3ecf7c72f0a42f027e4875919a28fb4c04ea2cf` |
-| 来源 | HuggingFace `ggerganov/whisper.cpp` |
+| 来源 | https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin |
 | 许可证 | MIT（GitHub `snakers4/silero-vad` 为 Apache-2.0） |
 | 用途 | 语音活动检测（`--vad -vm`，减少幻觉/静音段） |
 

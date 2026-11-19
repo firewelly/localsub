@@ -19,6 +19,18 @@ models/
 > `Sakura-Galtransl-7B-v3.7.gguf` 已永久删除（共 8.15GB）。来源、sha256 与恢复步骤见
 > 本地归档说明（未随仓库发布）。
 
+## 下载（模型不随仓库分发）
+
+```powershell
+# 在项目根下执行
+New-Item -ItemType Directory -Force models\whisper, models\translation | Out-Null
+curl.exe -L -o models\whisper\ggml-large-v3.bin        https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin
+curl.exe -L -o models\whisper\ggml-silero-v5.1.2.bin   https://huggingface.co/ggml-org/whisper-vad/resolve/main/ggml-silero-v5.1.2.bin
+curl.exe -L -o models\translation\HY-MT2-7B-Q8_0.gguf  https://huggingface.co/tencent/Hy-MT2-7B-GGUF/resolve/main/HY-MT2-7B-Q8_0.gguf
+```
+
+许可证：Whisper 权重 Apache-2.0、Silero VAD MIT、Hy-MT2 Apache-2.0；详见
+[MANIFEST.md](MANIFEST.md) 与 [THIRD_PARTY.md](../THIRD_PARTY.md)。
 ## 校验（换机器/换盘后必跑）
 
 ```powershell
@@ -56,4 +68,4 @@ Get-Content .\models\CHECKSUMS.sha256 |
 
 - **路径必须保持相对**：配置统一写 `models/...`，移动项目目录不需要改路径。
 - **显存实测**：large-v3 听写峰值 1.07–3.2GB；Hy-MT2 翻译峰值 6.2–8.6GB；合计 <10GB（A770 16GB 安全）。
-- **许可证**：Whisper MIT、Silero Apache-2.0、Hy-MT2 见腾讯官方仓库；默认仅个人非商业使用。
+- **许可证**：Whisper 权重 **Apache-2.0**（OpenAI 模型卡）、Silero VAD **MIT**、Hy-MT2 **Apache-2.0**；本仓库代码 MIT，不覆盖模型权重。

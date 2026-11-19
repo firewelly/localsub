@@ -2,26 +2,33 @@
 
 ## Naming history
 
-This project was developed under the working name **transub**. It has since been repackaged as a
-general-purpose local subtitle pipeline (**LocalSub**). The old name only reflected the early
-working directory and is not an assertion of affiliation.
+This project was developed under the working name **transub** and is now packaged as **LocalSub**.
+The old name only reflected the early working directory and does not imply affiliation.
 
 ## Relationship to dlsandy/Transub
 
 - [dlsandy/Transub](https://github.com/dlsandy/Transub) was **evaluated and not adopted**:
-  it is a Windows-only Electron GUI, has no CLI/automation entry point, and documents GPU
-  acceleration only for NVIDIA (CUDA) and AMD (ROCm) — not Intel Arc.
+  Windows-only Electron GUI, no CLI/automation entry point, GPU acceleration documented only for
+  NVIDIA (CUDA) and AMD (ROCm) — not Intel Arc.
 - **No source code, assets, or configuration from that project are included here.**
 - This repository is **not a fork** of dlsandy/Transub.
 
-## Third-party components
+## No vendored upstream source
 
-| Component | License | Usage |
-|---|---|---|
-| whisper.cpp | MIT | ASR engine (community Windows Vulkan build) |
-| llama.cpp | MIT | Translation server (Vulkan build) |
-| ffmpeg | LGPL/GPL (build dependent) | Audio extraction |
-| ggml-large-v3 / Silero VAD | MIT / Apache-2.0 | Download from their official repositories |
-| Hy-MT2-7B GGUF | see Tencent repository | Download from `tencent/Hy-MT2-7B-GGUF` |
+This repository contains only original project code. No whisper.cpp, llama.cpp, ffmpeg, Silero or
+model source code is vendored. Binaries and model weights are downloaded separately by the user and
+are not distributed with this repository.
 
-Model files are not part of this repository. See `models/MANIFEST.md` for sources and checksums.
+## Third-party components and licenses
+
+| Component | Role | License | Source |
+|---|---|---|---|
+| whisper.cpp | ASR engine (community Windows Vulkan build) | MIT | https://github.com/ggml-org/whisper.cpp |
+| llama.cpp | Translation server (Vulkan build) | MIT | https://github.com/ggml-org/llama.cpp |
+| ffmpeg | Audio extraction | LGPL-2.1+ / GPL-2.0+ (build-dependent) | https://ffmpeg.org/legal.html |
+| Whisper large-v3 weights | ASR | Apache-2.0 (OpenAI model card) | https://huggingface.co/openai/whisper-large-v3 |
+| Silero VAD v5.1.2 | VAD | MIT | https://github.com/snakers4/silero-vad |
+| Hy-MT2-7B Q8_0 | JA→ZH MT | Apache-2.0 | https://huggingface.co/tencent/Hy-MT2-7B-GGUF |
+
+Exact files, download URLs and redistribution notes: [THIRD_PARTY.md](THIRD_PARTY.md).
+Model files are not part of this repository. See `models/MANIFEST.md` for checksums.

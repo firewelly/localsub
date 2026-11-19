@@ -133,20 +133,32 @@ docs/                             # design, deployment, workflow, models, troubl
 - whisper.cpp Windows Vulkan build is a community build; official Windows builds have no Vulkan.
 - Translation quality is “accurate and readable”, not publishing-grade.
 - Long tasks depend on disk stability; use `-StageDir` if the source volume is flaky.
-- Model licences: Whisper MIT, Silero Apache-2.0, Hy-MT2 per Tencent repo; check before commercial use.
+- Model licences differ from the code licence; see [THIRD_PARTY.md](THIRD_PARTY.md).
 
-## 8. Naming and attribution
+## 8. Third-party projects, models and attribution
 
-- Former working directory/name: **transub**. The project is now packaged as a general pipeline.
-- **No code was copied from [dlsandy/Transub](https://github.com/dlsandy/Transub).** That project
-  was evaluated and rejected for automation (Windows-only Electron GUI, no CLI, no Intel Arc
-  support). The early working name was inspired by it for context only; this repository is **not a
-  fork** of it. See [NOTICE.md](NOTICE.md).
-- External projects used: whisper.cpp, llama.cpp, ffmpeg, Hugging Face models (see `models/MANIFEST.md`).
+- Former working name: **transub**. The project is now packaged as a general pipeline.
+- **No code was copied from [dlsandy/Transub](https://github.com/dlsandy/Transub).** It was
+  evaluated and rejected for automation (Windows-only Electron GUI, no CLI, no Intel Arc support);
+  the early name was inspired by it for context only. This repository is **not a fork**.
+- **No upstream source code is vendored here.** Binaries and model weights are downloaded
+  separately by the user.
+
+| Project / model | Role | License | Link |
+|---|---|---|---|
+| whisper.cpp | ASR engine | MIT | https://github.com/ggml-org/whisper.cpp |
+| llama.cpp (`llama-server`) | Translation server | MIT | https://github.com/ggml-org/llama.cpp |
+| ffmpeg | Audio extraction | LGPL-2.1+ / GPL-2.0+ (build-dependent) | https://ffmpeg.org/legal.html |
+| Whisper large-v3 | ASR weights | Apache-2.0 (OpenAI model card) | https://huggingface.co/openai/whisper-large-v3 |
+| Silero VAD v5.1.2 | Voice activity detection | MIT | https://github.com/snakers4/silero-vad |
+| Hy-MT2-7B Q8_0 | JA→ZH translation | Apache-2.0 | https://huggingface.co/tencent/Hy-MT2-7B-GGUF |
+
+Details, exact download URLs and redistribution notes: [THIRD_PARTY.md](THIRD_PARTY.md).
 
 ## 9. License
 
-MIT for this repository's code. Model licences are separate; see `models/MANIFEST.md`.
+**MIT** for the code in this repository (see [LICENSE](LICENSE)). It does **not** cover third-party
+binaries or model weights — those keep their own licenses (see [THIRD_PARTY.md](THIRD_PARTY.md)).
 
 ---
 
@@ -219,14 +231,25 @@ turbo-q8+Hy-MT2 466 条/10m32s/0 error 但 151 条超长 cue；
 对白极稀素材：关 VAD 164 条中 140 条幻觉；VAD+分片+清洗后仅 2 条真实对白。
 显存峰值 <10GB。结论：**听写用 large-v3、翻译用 Hy-MT2；VAD+分片是必需项**。
 
-## 命名与引用
+## 命名与第三方引用
 
 - 早期工作名：**transub**；现按通用流水线重新包装。
 - **未复用 [dlsandy/Transub](https://github.com/dlsandy/Transub) 的任何代码**；该项目因仅 Windows
-  GUI、无 CLI、不支持 Intel Arc 而被排除，仅早期命名受其启发。本仓库**不是它的 fork**，详见
-  [NOTICE.md](NOTICE.md)。
-- 使用的外部项目：whisper.cpp、llama.cpp、ffmpeg、Hugging Face 模型（见 `models/MANIFEST.md`）。
+  GUI、无 CLI、不支持 Intel Arc 而被排除，仅早期命名受其启发。本仓库**不是它的 fork**。
+- **本仓库没有内置任何上游源码**；二进制与模型由用户自行下载。
+
+| 项目 / 模型 | 用途 | 许可 | 链接 |
+|---|---|---|---|
+| whisper.cpp | 听写引擎 | MIT | https://github.com/ggml-org/whisper.cpp |
+| llama.cpp（`llama-server`） | 翻译服务 | MIT | https://github.com/ggml-org/llama.cpp |
+| ffmpeg | 抽取音轨 | LGPL-2.1+ / GPL-2.0+（视构建而定） | https://ffmpeg.org/legal.html |
+| Whisper large-v3 | 听写权重 | Apache-2.0（OpenAI 模型卡） | https://huggingface.co/openai/whisper-large-v3 |
+| Silero VAD v5.1.2 | 人声检测 | MIT | https://github.com/snakers4/silero-vad |
+| Hy-MT2-7B Q8_0 | 日→中翻译 | Apache-2.0 | https://huggingface.co/tencent/Hy-MT2-7B-GGUF |
+
+具体下载地址与再分发注意事项见 [THIRD_PARTY.md](THIRD_PARTY.md)。
 
 ## 许可
 
-本仓库代码 MIT；模型许可另见 `models/MANIFEST.md`。
+本仓库代码 **MIT**（见 [LICENSE](LICENSE)）；该许可**不覆盖**第三方二进制与模型权重，它们各自保留原许可
+（见 [THIRD_PARTY.md](THIRD_PARTY.md)）。

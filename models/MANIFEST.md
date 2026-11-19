@@ -1,18 +1,35 @@
-# 模型清单（2026-11-16 瘦身定版）
+# 模型清单（2026-11-16 定版）
 
-> 最终 pipeline 只依赖以下 **3 个模型文件**，全部位于本机磁盘 `models/` 下，无需联网。
-> 其余实验模型（turbo/turbo-q8/Sakura）已于 2026-11-16 永久删除；来源、sha256 与恢复步骤见
-> 本地归档说明（未随仓库发布）。
+> 最终 pipeline 只依赖以下 **3 个模型文件**，位于本机 `models/` 下，运行时无需联网。
+> **模型权重不随本仓库分发**；请按下方链接自行下载，并遵守各自的许可证。
+> 实验模型（turbo / turbo-q8 / Sakura）已删除；旧配置与旧模型未随仓库发布。
 
-## 1. 保留模型
+## 1. 保留模型与下载地址
 
-| 文件（相对 `models/`） | 大小 | sha256 | 来源 | 用途 | 许可证 |
+| 文件（相对 `models/`） | 大小 | sha256 | 用途 | 许可证 | 下载 |
 |---|---|---|---|---|---|
-| `whisper/ggml-large-v3.bin` | 2.88 GB | `64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2` | [ggerganov/whisper.cpp](https://huggingface.co/ggerganov/whisper.cpp) | **日语听写主模型**（全尺寸，实测断句/标点明显优于 turbo） | MIT |
-| `whisper/ggml-silero-v5.1.2.bin` | 0.9 MB | `29940d98d42b91fbd05ce489f3ecf7c72f0a42f027e4875919a28fb4c04ea2cf` | [ggml-org/whisper.cpp](https://huggingface.co/ggerganov/whisper.cpp) | Silero VAD（`--vad`，长音频分片必需） | Apache-2.0 |
-| `translation/HY-MT2-7B-Q8_0.gguf` | 7.43 GB | `58b3ad55dd6f6fa08c695cddc34fb5f8f708a844f78ae10508071914b0ed67c0` | [tencent/Hy-MT2-7B-GGUF](https://huggingface.co/tencent/Hy-MT2-7B-GGUF)（腾讯官方） | **日译中主模型**（7B Q8_0，hunyuan 提示词） | 见仓库 |
+| `whisper/ggml-large-v3.bin` | 2.88 GB | `64d182b440b98d5203c4f9bd541544d84c605196c4f7b845dfa11fb23594d1e2` | 听写主模型（large-v3 fp16） | Apache-2.0（OpenAI 权重；ggml 转换仓库标注 MIT） | https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin |
+| `whisper/ggml-silero-v5.1.2.bin` | 0.9 MB | `29940d98d42b91fbd05ce489f3ecf7c72f0a42f027e4875919a28fb4c04ea2cf` | Silero VAD（`--vad`，长音频分片必需） | MIT | https://huggingface.co/ggml-org/whisper-vad/resolve/main/ggml-silero-v5.1.2.bin |
+| `translation/HY-MT2-7B-Q8_0.gguf` | 7.43 GB | `58b3ad55dd6f6fa08c695cddc34fb5f8f708a844f78ae10508071914b0ed67c0` | 日译中主模型（Hy-MT2-7B Q8_0） | Apache-2.0 | https://huggingface.co/tencent/Hy-MT2-7B-GGUF/resolve/main/HY-MT2-7B-Q8_0.gguf |
 
-## 2. 校验方法
+参考页：
+
+- Whisper large-v3 模型卡：https://huggingface.co/openai/whisper-large-v3
+- Silero VAD 上游：https://github.com/snakers4/silero-vad
+- Hy-MT2-7B-GGUF 模型卡：https://huggingface.co/tencent/Hy-MT2-7B-GGUF
+- 第三方组件与许可汇总：[THIRD_PARTY.md](../THIRD_PARTY.md)
+
+## 2. 下载（PowerShell，可选）
+
+```powershell
+# 在项目根下执行；如网络需要代理，请先设置 HTTPS_PROXY / ALL_PROXY
+New-Item -ItemType Directory -Force models\whisper, models\translation | Out-Null
+curl.exe -L -o models\whisper\ggml-large-v3.bin        https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin
+curl.exe -L -o models\whisper\ggml-silero-v5.1.2.bin   https://huggingface.co/ggml-org/whisper-vad/resolve/main/ggml-silero-v5.1.2.bin
+curl.exe -L -o models\translation\HY-MT2-7B-Q8_0.gguf  https://huggingface.co/tencent/Hy-MT2-7B-GGUF/resolve/main/HY-MT2-7B-Q8_0.gguf
+```
+
+## 3. 校验方法
 
 ```powershell
 # 在项目根下执行
@@ -24,9 +41,9 @@ Get-FileHash models\translation\HY-MT2-7B-Q8_0.gguf -Algorithm SHA256
 
 `scripts/python/selftest.py` / `00-check-env.ps1` 会检查文件是否存在；本清单用于离线核对完整性。
 
-## 3. 注意
+## 4. 注意
 
-- **移动硬盘/外置盘不可信**：2026-11-15/16 多次出现模型变 0 字节、复制中断、读取 `partial file`。
-  模型只以本机磁盘副本为准；备份到移动盘后必须重新校验 sha256。
+- **模型不随仓库分发**；本仓库的 MIT 许可不覆盖模型权重。
+- 移动硬盘/外置盘不可靠：复制后必须重新校验 sha256。
 - 不要从本清单之外的旧路径引用模型；脚本统一通过 `config/pipeline.json` 的 `models.*` 读取。
-- 许可证：Whisper MIT、Silero Apache-2.0、Hy-MT2 见腾讯仓库条款（默认仅个人非商业使用）。
+- 许可证以各上游模型卡为准；商用/再分发前请复核。
