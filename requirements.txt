@@ -1,0 +1,7 @@
+# Runtime dependencies for the LocalSub pipeline.
+#
+# The pipeline itself (scripts/python/*.py and the Windows PowerShell scripts)
+# uses ONLY the Python standard library — no third-party packages are required.
+#
+# The optional model downloader (models/download_models.py) needs requests + PySocks:
+#   pip install -r requirements-download.txt

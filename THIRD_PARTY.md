@@ -21,6 +21,15 @@ user and are **not distributed** with this repository.
 > ffmpeg builds that include GPL components (e.g. x264) are GPL; LGPL builds are available.
 > If you redistribute a specific ffmpeg binary, you must comply with that build's license.
 
+## 1.1 Optional Python tooling (not runtime) / 可选 Python 工具依赖（非运行时）
+
+| Package | Role | License | Link |
+|---|---|---|---|
+| requests | HTTP client for `models/download_models.py` | Apache-2.0 | https://github.com/psf/requests |
+| PySocks | SOCKS5 proxy support for the downloader | MIT | https://github.com/Anorov/PySocks |
+
+`requirements.txt` intentionally contains no runtime packages; install the optional downloader
+deps with `pip install -r requirements-download.txt`.
 ## 2. Model weights / 模型权重
 
 | Model | File used | Role | License (per model card) | Download | In repo? |

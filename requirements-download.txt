@@ -1,0 +1,4 @@
+# Optional: only for models/download_models.py (HuggingFace download over SOCKS5).
+# You can also download the model files manually via the links in models/MANIFEST.md.
+requests>=2.31
+PySocks>=1.7

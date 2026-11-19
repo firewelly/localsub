@@ -45,6 +45,8 @@ USB4 eGPU bandwidth is sufficient: the workload is compute-bound, not PCIe-bound
 ```powershell
 # from the project root
 python -m venv .venv
+# The pipeline itself needs NO pip packages (Python standard library only).
+# Optional, only for the model downloader: pip install -r requirements-download.txt
 .\.venv\Scripts\python.exe scripts\python\selftest.py   # 17/17 expected
 
 .\scripts\windows\00-check-env.ps1                       # expect 0 FAIL
@@ -194,6 +196,8 @@ binaries or model weights — those keep their own licenses (see [THIRD_PARTY.md
 
 ```powershell
 python -m venv .venv
+# 流水线本体不需要任何 pip 包（仅 Python 标准库）
+# 可选，仅模型下载脚本需要：pip install -r requirements-download.txt
 .\.venv\Scripts\python.exe scripts\python\selftest.py   # 期望 17/17
 .\scripts\windows\00-check-env.ps1                       # 期望 0 FAIL
 
